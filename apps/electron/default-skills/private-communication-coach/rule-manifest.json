@@ -1,0 +1,272 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-30T13:26:33.476Z",
+  "phase": "phase-0",
+  "runtimeUse": false,
+  "rules": [
+    {
+      "id": "qingsheng-core-skill",
+      "source": "qingsheng-skill",
+      "sourceRepo": "https://github.com/tomwong001/qingsheng-skill",
+      "sourceCommit": "ea23b10376b146abfcff20f71876889a0453a7e7",
+      "license": "MIT",
+      "relativePath": "references/qingsheng/skill/SKILL.md",
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "modified": false,
+      "riskLevel": "medium",
+      "tags": [
+        "relationship-stage",
+        "reply-generation",
+        "risk-review"
+      ],
+      "stages": [
+        "phase-0",
+        "future-analysis"
+      ]
+    },
+    {
+      "id": "qingsheng-signals-tools",
+      "source": "qingsheng-skill",
+      "sourceRepo": "https://github.com/tomwong001/qingsheng-skill",
+      "sourceCommit": "ea23b10376b146abfcff20f71876889a0453a7e7",
+      "license": "MIT",
+      "relativePath": "references/qingsheng/skill/references/signals-tools.md",
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "modified": false,
+      "riskLevel": "medium",
+      "tags": [
+        "signals",
+        "conversation-analysis"
+      ],
+      "stages": [
+        "phase-0",
+        "future-analysis"
+      ]
+    },
+    {
+      "id": "qingsheng-packaged-skill",
+      "source": "qingsheng-skill",
+      "sourceRepo": "https://github.com/tomwong001/qingsheng-skill",
+      "sourceCommit": "ea23b10376b146abfcff20f71876889a0453a7e7",
+      "license": "MIT",
+      "relativePath": "references/qingsheng/qingsheng-skill.skill",
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "modified": false,
+      "riskLevel": "medium",
+      "tags": [
+        "packaged-skill",
+        "reference-only"
+      ],
+      "stages": [
+        "phase-0"
+      ]
+    },
+    {
+      "id": "qingsheng-evals",
+      "source": "qingsheng-skill",
+      "sourceRepo": "https://github.com/tomwong001/qingsheng-skill",
+      "sourceCommit": "ea23b10376b146abfcff20f71876889a0453a7e7",
+      "license": "MIT",
+      "relativePath": "references/qingsheng/evals",
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "modified": false,
+      "riskLevel": "medium",
+      "tags": [
+        "evals",
+        "reference-only"
+      ],
+      "stages": [
+        "phase-0"
+      ]
+    },
+    {
+      "id": "simp-skill",
+      "source": "simp-skill",
+      "sourceRepo": "https://github.com/BeamusWayne/simp-skill",
+      "sourceCommit": "2455f2fdaaf0f8718a10c892ffb4cedfa10bb973",
+      "license": "MIT",
+      "relativePath": "references/simp/SKILL.md",
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "modified": false,
+      "riskLevel": "medium",
+      "tags": [
+        "signal-analysis",
+        "chat-advice"
+      ],
+      "stages": [
+        "phase-0",
+        "future-analysis"
+      ]
+    },
+    {
+      "id": "simp-prompts",
+      "source": "simp-skill",
+      "sourceRepo": "https://github.com/BeamusWayne/simp-skill",
+      "sourceCommit": "2455f2fdaaf0f8718a10c892ffb4cedfa10bb973",
+      "license": "MIT",
+      "relativePath": "references/simp/prompts",
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "modified": false,
+      "riskLevel": "medium",
+      "tags": [
+        "prompts",
+        "signals",
+        "reply-crafting"
+      ],
+      "stages": [
+        "phase-0",
+        "future-analysis"
+      ]
+    },
+    {
+      "id": "simp-tools",
+      "source": "simp-skill",
+      "sourceRepo": "https://github.com/BeamusWayne/simp-skill",
+      "sourceCommit": "2455f2fdaaf0f8718a10c892ffb4cedfa10bb973",
+      "license": "MIT",
+      "relativePath": "tools/simp",
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "modified": false,
+      "riskLevel": "high",
+      "tags": [
+        "tooling",
+        "sidecar-disabled"
+      ],
+      "stages": [
+        "phase-0"
+      ]
+    },
+    {
+      "id": "she-love-agent-skill",
+      "source": "she-love-me",
+      "sourceRepo": "https://github.com/863401402/she-love-me",
+      "sourceCommit": "e85dff9e0d1f24db0aded42694f8d85154fbee76",
+      "license": "MIT",
+      "relativePath": "references/she-love-me/agent-skill/SKILL.md",
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "modified": false,
+      "riskLevel": "high",
+      "tags": [
+        "long-review",
+        "wechat-reference",
+        "tone-review"
+      ],
+      "stages": [
+        "phase-0",
+        "future-import"
+      ]
+    },
+    {
+      "id": "she-love-scripts",
+      "source": "she-love-me",
+      "sourceRepo": "https://github.com/863401402/she-love-me",
+      "sourceCommit": "e85dff9e0d1f24db0aded42694f8d85154fbee76",
+      "license": "MIT",
+      "relativePath": "tools/she-love-me/scripts",
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "modified": false,
+      "riskLevel": "high",
+      "tags": [
+        "scripts",
+        "sidecar-disabled",
+        "wechat-reference"
+      ],
+      "stages": [
+        "phase-0"
+      ]
+    },
+    {
+      "id": "she-love-traditional-deployment",
+      "source": "she-love-me",
+      "sourceRepo": "https://github.com/863401402/she-love-me",
+      "sourceCommit": "e85dff9e0d1f24db0aded42694f8d85154fbee76",
+      "license": "MIT",
+      "relativePath": "tools/she-love-me/traditional-deployment",
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "modified": false,
+      "riskLevel": "high",
+      "tags": [
+        "wechat-reference",
+        "deployment-reference"
+      ],
+      "stages": [
+        "phase-0"
+      ]
+    },
+    {
+      "id": "partner-skill",
+      "source": "partner-skill",
+      "sourceRepo": "https://github.com/NatalieCao323/partner-skill",
+      "sourceCommit": "5d80d609059713f586b9ff5b37430c2ba7f76491",
+      "license": "MIT",
+      "relativePath": "references/partner/SKILL.md",
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "modified": false,
+      "riskLevel": "medium",
+      "tags": [
+        "long-term-relationship",
+        "conflict-repair"
+      ],
+      "stages": [
+        "phase-0",
+        "future-analysis"
+      ]
+    },
+    {
+      "id": "partner-prompts",
+      "source": "partner-skill",
+      "sourceRepo": "https://github.com/NatalieCao323/partner-skill",
+      "sourceCommit": "5d80d609059713f586b9ff5b37430c2ba7f76491",
+      "license": "MIT",
+      "relativePath": "references/partner/prompts",
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "modified": false,
+      "riskLevel": "medium",
+      "tags": [
+        "prompts",
+        "conflict-repair"
+      ],
+      "stages": [
+        "phase-0",
+        "future-analysis"
+      ]
+    },
+    {
+      "id": "partner-tools",
+      "source": "partner-skill",
+      "sourceRepo": "https://github.com/NatalieCao323/partner-skill",
+      "sourceCommit": "5d80d609059713f586b9ff5b37430c2ba7f76491",
+      "license": "MIT",
+      "relativePath": "tools/partner",
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "modified": false,
+      "riskLevel": "medium",
+      "tags": [
+        "tooling",
+        "sidecar-disabled"
+      ],
+      "stages": [
+        "phase-0"
+      ]
+    },
+    {
+      "id": "wechatmsg-readme",
+      "source": "WeChatMsg",
+      "sourceRepo": "https://github.com/LC044/WeChatMsg",
+      "sourceCommit": "5d6d094d8a77c9837d0b7479f79dc6a6c8c677b2",
+      "license": "unknown",
+      "relativePath": "references/wechatmsg/README.md",
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "modified": false,
+      "riskLevel": "medium",
+      "tags": [
+        "wechat-format-reference",
+        "reference-only"
+      ],
+      "stages": [
+        "phase-0",
+        "future-import"
+      ]
+    }
+  ]
+}

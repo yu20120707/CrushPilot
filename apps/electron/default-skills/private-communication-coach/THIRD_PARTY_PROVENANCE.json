@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-30T13:26:33.476Z",
+  "repos": [
+    {
+      "name": "qingsheng-skill",
+      "repoUrl": "https://github.com/tomwong001/qingsheng-skill",
+      "commitHash": "ea23b10376b146abfcff20f71876889a0453a7e7",
+      "license": "MIT",
+      "licenseFile": "third_party/qingsheng-skill/LICENSE",
+      "copiedFiles": [
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/LICENSE",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/README.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/evals.json",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/evals_candidates_sample.json",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/evals_candidates_v1.json",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/evals_chatlogs_advisory.json",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/evals_chatlogs_advisory_v2.json",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/evals_chatlogs_autopilot.json",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/evals_chatlogs_autopilot_v2.json",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/rejudge.sh",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/results/20260410-162513-smoke-test/summary.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/results/20260410-162608-baseline-v3/summary.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/results/20260410-163852-v4-regression/summary.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/results/20260410-230852-v5-first-pass/summary.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/run_evals.sh",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/scripts/gen_evals_from_candidates.py",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/qingsheng-skill.skill",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/SKILL.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/qingsheng-upgrade.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/references/advanced-techniques.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/references/autopilot-guide.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/references/examples-library.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/references/mindset-concepts.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/references/platform-guide.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/references/profile-audit.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/references/recovery-playbook.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/references/signals-tools.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/references/stages.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/references/user-context.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/展示面.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/急.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/挽回.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/换一个.md",
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng/skill/自动.md"
+      ],
+      "skippedFiles": [
+        {
+          "path": "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/results/baseline-v3.log",
+          "reason": "log artifact excluded from committed product inputs"
+        },
+        {
+          "path": "apps/electron/default-skills/private-communication-coach/references/qingsheng/evals/results/v4-regression.log",
+          "reason": "log artifact excluded from committed product inputs"
+        }
+      ],
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "targetPaths": [
+        "apps/electron/default-skills/private-communication-coach/references/qingsheng"
+      ],
+      "modificationStatus": "unmodified-copy",
+      "notes": "Copied relationship-stage and reply-generation rule material. Evals copied as reference material only; not executed in Phase 0."
+    },
+    {
+      "name": "simp-skill",
+      "repoUrl": "https://github.com/BeamusWayne/simp-skill",
+      "commitHash": "2455f2fdaaf0f8718a10c892ffb4cedfa10bb973",
+      "license": "MIT",
+      "licenseFile": "third_party/simp-skill/LICENSE",
+      "copiedFiles": [
+        "apps/electron/default-skills/private-communication-coach/references/simp/LICENSE",
+        "apps/electron/default-skills/private-communication-coach/references/simp/README.md",
+        "apps/electron/default-skills/private-communication-coach/references/simp/SKILL.md",
+        "apps/electron/default-skills/private-communication-coach/references/simp/prompts/confess.md",
+        "apps/electron/default-skills/private-communication-coach/references/simp/prompts/crisis_handler.md",
+        "apps/electron/default-skills/private-communication-coach/references/simp/prompts/daily_coach.md",
+        "apps/electron/default-skills/private-communication-coach/references/simp/prompts/intake.md",
+        "apps/electron/default-skills/private-communication-coach/references/simp/prompts/mbti_analyzer.md",
+        "apps/electron/default-skills/private-communication-coach/references/simp/prompts/message_crafter.md",
+        "apps/electron/default-skills/private-communication-coach/references/simp/prompts/persona_builder.md",
+        "apps/electron/default-skills/private-communication-coach/references/simp/prompts/progress_tracker.md",
+        "apps/electron/default-skills/private-communication-coach/references/simp/prompts/quit_judge.md",
+        "apps/electron/default-skills/private-communication-coach/references/simp/prompts/signal_reader.md",
+        "apps/electron/default-skills/private-communication-coach/references/simp/prompts/strategy_builder.md",
+        "apps/electron/default-skills/private-communication-coach/references/simp/prompts/timeline.md",
+        "apps/electron/default-skills/private-communication-coach/references/simp/tests/test_chat_parser.py",
+        "apps/electron/default-skills/private-communication-coach/references/simp/tests/test_memory.py",
+        "apps/electron/default-skills/private-communication-coach/references/simp/tests/test_photo_analyzer.py",
+        "apps/electron/default-skills/private-communication-coach/references/simp/tests/test_skill_writer.py",
+        "apps/electron/default-skills/private-communication-coach/references/simp/tests/test_social_parser.py",
+        "apps/electron/default-skills/private-communication-coach/references/simp/tests/test_time_tracker.py",
+        "apps/electron/default-skills/private-communication-coach/tools/simp/chat_parser.py",
+        "apps/electron/default-skills/private-communication-coach/tools/simp/memory.py",
+        "apps/electron/default-skills/private-communication-coach/tools/simp/photo_analyzer.py",
+        "apps/electron/default-skills/private-communication-coach/tools/simp/skill_writer.py",
+        "apps/electron/default-skills/private-communication-coach/tools/simp/social_parser.py",
+        "apps/electron/default-skills/private-communication-coach/tools/simp/time_tracker.py"
+      ],
+      "skippedFiles": [
+        {
+          "path": "third_party/simp-skill/scripts",
+          "reason": "expected path not found during scan"
+        },
+        {
+          "path": "third_party/simp-skill/evals",
+          "reason": "expected path not found during scan"
+        }
+      ],
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "targetPaths": [
+        "apps/electron/default-skills/private-communication-coach/references/simp",
+        "apps/electron/default-skills/private-communication-coach/tools/simp"
+      ],
+      "modificationStatus": "unmodified-copy",
+      "notes": "Copied signal-analysis prompts and available tools as inert reference/tool material. No Python execution is wired in Phase 0."
+    },
+    {
+      "name": "she-love-me",
+      "repoUrl": "https://github.com/863401402/she-love-me",
+      "commitHash": "e85dff9e0d1f24db0aded42694f8d85154fbee76",
+      "license": "MIT",
+      "licenseFile": "third_party/she-love-me/LICENSE",
+      "copiedFiles": [
+        "apps/electron/default-skills/private-communication-coach/references/she-love-me/LICENSE",
+        "apps/electron/default-skills/private-communication-coach/references/she-love-me/README.md",
+        "apps/electron/default-skills/private-communication-coach/references/she-love-me/agent-skill/SKILL.md",
+        "apps/electron/default-skills/private-communication-coach/references/she-love-me/agent-skill/agents/openai.yaml",
+        "apps/electron/default-skills/private-communication-coach/references/she-love-me/agent-skill/references/analysis-framework.md",
+        "apps/electron/default-skills/private-communication-coach/references/she-love-me/agent-skill/references/report-schema.md",
+        "apps/electron/default-skills/private-communication-coach/references/she-love-me/agent-skill/references/report-template.md",
+        "apps/electron/default-skills/private-communication-coach/references/she-love-me/agent-skill/references/risk-signals.md",
+        "apps/electron/default-skills/private-communication-coach/references/she-love-me/agent-skill/references/strategist-guide.md",
+        "apps/electron/default-skills/private-communication-coach/tools/she-love-me/scripts/build_chat_history.py",
+        "apps/electron/default-skills/private-communication-coach/tools/she-love-me/scripts/contact_bundle.py",
+        "apps/electron/default-skills/private-communication-coach/tools/she-love-me/scripts/decrypt_wechat.py",
+        "apps/electron/default-skills/private-communication-coach/tools/she-love-me/scripts/export_emojis.py",
+        "apps/electron/default-skills/private-communication-coach/tools/she-love-me/scripts/extract_messages.py",
+        "apps/electron/default-skills/private-communication-coach/tools/she-love-me/scripts/extract_messages_qq.py",
+        "apps/electron/default-skills/private-communication-coach/tools/she-love-me/scripts/generate_html_report.py",
+        "apps/electron/default-skills/private-communication-coach/tools/she-love-me/scripts/list_contacts.py",
+        "apps/electron/default-skills/private-communication-coach/tools/she-love-me/scripts/list_contacts_qq.py",
+        "apps/electron/default-skills/private-communication-coach/tools/she-love-me/scripts/setup_check.py",
+        "apps/electron/default-skills/private-communication-coach/tools/she-love-me/scripts/stats_analyzer.py",
+        "apps/electron/default-skills/private-communication-coach/tools/she-love-me/traditional-deployment/README.md",
+        "apps/electron/default-skills/private-communication-coach/tools/she-love-me/traditional-deployment/build_llm_package.py"
+      ],
+      "skippedFiles": [
+        {
+          "path": "third_party/she-love-me/prompts",
+          "reason": "expected path not found during scan"
+        },
+        {
+          "path": "third_party/she-love-me/tools",
+          "reason": "expected path not found during scan"
+        },
+        {
+          "path": "third_party/she-love-me/tests",
+          "reason": "expected path not found during scan"
+        },
+        {
+          "path": "third_party/she-love-me/evals",
+          "reason": "expected path not found during scan"
+        }
+      ],
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "targetPaths": [
+        "apps/electron/default-skills/private-communication-coach/references/she-love-me",
+        "apps/electron/default-skills/private-communication-coach/tools/she-love-me"
+      ],
+      "modificationStatus": "unmodified-copy",
+      "notes": "Copied agent skill and export/stat/report scripts as reference material only. WeChat DB import and script execution remain out of Phase 0 scope."
+    },
+    {
+      "name": "partner-skill",
+      "repoUrl": "https://github.com/NatalieCao323/partner-skill",
+      "commitHash": "5d80d609059713f586b9ff5b37430c2ba7f76491",
+      "license": "MIT",
+      "licenseFile": "third_party/partner-skill/LICENSE",
+      "copiedFiles": [
+        "apps/electron/default-skills/private-communication-coach/references/partner/LICENSE",
+        "apps/electron/default-skills/private-communication-coach/references/partner/README.md",
+        "apps/electron/default-skills/private-communication-coach/references/partner/SKILL.md",
+        "apps/electron/default-skills/private-communication-coach/references/partner/prompts/correction_handler.md",
+        "apps/electron/default-skills/private-communication-coach/references/partner/prompts/counterfactual_engine.md",
+        "apps/electron/default-skills/private-communication-coach/references/partner/prompts/intake.md",
+        "apps/electron/default-skills/private-communication-coach/references/partner/prompts/memory_builder.md",
+        "apps/electron/default-skills/private-communication-coach/references/partner/prompts/persona_builder.md",
+        "apps/electron/default-skills/private-communication-coach/references/partner/prompts/policy_selector.md",
+        "apps/electron/default-skills/private-communication-coach/references/partner/prompts/reflection_log.md",
+        "apps/electron/default-skills/private-communication-coach/references/partner/prompts/relationship_health.md",
+        "apps/electron/default-skills/private-communication-coach/references/partner/prompts/scenario_advisor.md",
+        "apps/electron/default-skills/private-communication-coach/references/partner/prompts/state_engine.md",
+        "apps/electron/default-skills/private-communication-coach/tools/partner/chat_parser.py",
+        "apps/electron/default-skills/private-communication-coach/tools/partner/conflict_resolver.py",
+        "apps/electron/default-skills/private-communication-coach/tools/partner/counterfactual_engine.py",
+        "apps/electron/default-skills/private-communication-coach/tools/partner/email_parser.py",
+        "apps/electron/default-skills/private-communication-coach/tools/partner/gift_advisor.py",
+        "apps/electron/default-skills/private-communication-coach/tools/partner/policy_selector.py",
+        "apps/electron/default-skills/private-communication-coach/tools/partner/profile_builder.py",
+        "apps/electron/default-skills/private-communication-coach/tools/partner/relationship_analyzer.py",
+        "apps/electron/default-skills/private-communication-coach/tools/partner/scenario_advisor.py",
+        "apps/electron/default-skills/private-communication-coach/tools/partner/skill_writer.py",
+        "apps/electron/default-skills/private-communication-coach/tools/partner/state_engine.py",
+        "apps/electron/default-skills/private-communication-coach/tools/partner/version_manager.py"
+      ],
+      "skippedFiles": [
+        {
+          "path": "third_party/partner-skill/tests",
+          "reason": "expected path not found during scan"
+        },
+        {
+          "path": "third_party/partner-skill/evals",
+          "reason": "expected path not found during scan"
+        },
+        {
+          "path": "third_party/partner-skill/scripts",
+          "reason": "expected path not found during scan"
+        }
+      ],
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "targetPaths": [
+        "apps/electron/default-skills/private-communication-coach/references/partner",
+        "apps/electron/default-skills/private-communication-coach/tools/partner"
+      ],
+      "modificationStatus": "unmodified-copy",
+      "notes": "Copied long-term relationship and conflict-repair prompt material. Example partner personas are not copied in Phase 0."
+    },
+    {
+      "name": "WeChatMsg",
+      "repoUrl": "https://github.com/LC044/WeChatMsg",
+      "commitHash": "5d6d094d8a77c9837d0b7479f79dc6a6c8c677b2",
+      "license": "unknown",
+      "licenseFile": null,
+      "copiedFiles": [
+        "apps/electron/default-skills/private-communication-coach/references/wechatmsg/README.md"
+      ],
+      "skippedFiles": [
+        {
+          "path": "third_party/WeChatMsg/LICENSE",
+          "reason": "expected path not found during scan"
+        },
+        {
+          "path": "third_party/WeChatMsg/SKILL.md",
+          "reason": "expected path not found during scan"
+        },
+        {
+          "path": "third_party/WeChatMsg/prompts",
+          "reason": "expected path not found during scan"
+        },
+        {
+          "path": "third_party/WeChatMsg/tools",
+          "reason": "expected path not found during scan"
+        },
+        {
+          "path": "third_party/WeChatMsg/scripts",
+          "reason": "expected path not found during scan"
+        },
+        {
+          "path": "third_party/WeChatMsg/tests",
+          "reason": "expected path not found during scan"
+        },
+        {
+          "path": "third_party/WeChatMsg/evals",
+          "reason": "expected path not found during scan"
+        },
+        {
+          "path": "third_party/WeChatMsg/LICENSE",
+          "reason": "missing"
+        }
+      ],
+      "copiedAt": "2026-06-30T13:26:33.476Z",
+      "targetPaths": [
+        "apps/electron/default-skills/private-communication-coach/references/wechatmsg"
+      ],
+      "modificationStatus": "unmodified-copy",
+      "notes": "Copied README only for format/ecosystem compatibility reference. No WeChat import implementation in Phase 0."
+    }
+  ]
+}
