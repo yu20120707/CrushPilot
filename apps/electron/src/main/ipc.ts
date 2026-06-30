@@ -9,7 +9,7 @@ import { join, resolve, sep, dirname } from 'node:path'
 import { existsSync, realpathSync, rmSync, readFileSync, writeFileSync, mkdirSync, statSync } from 'node:fs'
 import { writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
-import { IPC_CHANNELS, CHANNEL_IPC_CHANNELS, CHAT_IPC_CHANNELS, AGENT_IPC_CHANNELS, ENVIRONMENT_IPC_CHANNELS, INSTALLER_IPC_CHANNELS, PROXY_IPC_CHANNELS, GITHUB_RELEASE_IPC_CHANNELS, SYSTEM_PROMPT_IPC_CHANNELS, MEMORY_IPC_CHANNELS, CHAT_TOOL_IPC_CHANNELS, FEISHU_IPC_CHANNELS, DINGTALK_IPC_CHANNELS, WECHAT_IPC_CHANNELS, AUTOMATION_IPC_CHANNELS, isPromaPermissionMode, normalizePathForCompare } from '@proma/shared'
+import { IPC_CHANNELS, CHANNEL_IPC_CHANNELS, CHAT_IPC_CHANNELS, AGENT_IPC_CHANNELS, ENVIRONMENT_IPC_CHANNELS, INSTALLER_IPC_CHANNELS, PROXY_IPC_CHANNELS, GITHUB_RELEASE_IPC_CHANNELS, SYSTEM_PROMPT_IPC_CHANNELS, MEMORY_IPC_CHANNELS, CHAT_TOOL_IPC_CHANNELS, FEISHU_IPC_CHANNELS, DINGTALK_IPC_CHANNELS, WECHAT_IPC_CHANNELS, AUTOMATION_IPC_CHANNELS, PRIVATE_COACH_IPC_CHANNELS, isPromaPermissionMode, normalizePathForCompare } from '@proma/shared'
 import { USER_PROFILE_IPC_CHANNELS, SETTINGS_IPC_CHANNELS, SCRATCH_PAD_IPC_CHANNELS, QUICK_TASK_IPC_CHANNELS, VOICE_DICTATION_IPC_CHANNELS, APP_ICON_IPC_CHANNELS, DOCK_BADGE_IPC_CHANNELS, STORAGE_IPC_CHANNELS } from '../types'
 import type {
   QuickTaskSubmitInput,
@@ -109,6 +109,12 @@ import type {
   ResolvedFileUrl,
   Automation,
   CreateAutomationInput,
+  PrivateCoachDeleteAnalysisResult,
+  PrivateCoachExportMarkdownResult,
+  PrivateCoachGetAnalysisResult,
+  PrivateCoachListAnalysesResult,
+  PrivateCoachResult,
+  PrivateCoachWorkflowInput,
   UpdateAutomationInput,
 } from '@proma/shared'
 import type { UserProfile, AppSettings } from '../types'
@@ -150,6 +156,7 @@ import { extractTextFromAttachment } from './lib/document-parser'
 import { getTutorialContent, createWelcomeConversation } from './lib/tutorial-service'
 import { getUserProfile, updateUserProfile } from './lib/user-profile-service'
 import { getSettings, updateSettings } from './lib/settings-service'
+import { PrivateCoachWorkflowService } from './lib/private-coach'
 import { setBuiltinMcpUserEnabled } from './lib/builtin-mcp/settings'
 import { setDockBadgeCount } from './lib/dock-badge-service'
 
@@ -445,6 +452,7 @@ function getBundledResourcesDir(): string {
  * 进程级别一次会话足够，无需失效策略——用户切换默认 App 是低频行为，下次重启生效即可。
  */
 const defaultAppCache = new Map<string, import('@proma/shared').DefaultAppInfo | null>()
+const privateCoachWorkflowService = new PrivateCoachWorkflowService()
 
 function extOf(filePath: string): string {
   const base = filePath.split(/[\\/]/).pop() ?? ''
@@ -1403,6 +1411,46 @@ export function registerIpcHandlers(): void {
     CHAT_IPC_CHANNELS.EXTRACT_ATTACHMENT_TEXT,
     async (_, localPath: string): Promise<string> => {
       return extractTextFromAttachment(localPath)
+    }
+  )
+
+  // ===== Private Coach Phase 1A mock =====
+
+  ipcMain.handle(
+    PRIVATE_COACH_IPC_CHANNELS.ANALYZE_CONVERSATION,
+    async (_, input: PrivateCoachWorkflowInput): Promise<PrivateCoachResult> => {
+      if (!input || typeof input !== 'object') {
+        throw new Error('Invalid private coach workflow input')
+      }
+      return privateCoachWorkflowService.run(input)
+    }
+  )
+
+  ipcMain.handle(
+    PRIVATE_COACH_IPC_CHANNELS.LIST_ANALYSES,
+    async (): Promise<PrivateCoachListAnalysesResult> => {
+      return privateCoachWorkflowService.listAnalyses()
+    }
+  )
+
+  ipcMain.handle(
+    PRIVATE_COACH_IPC_CHANNELS.GET_ANALYSIS,
+    async (_, _analysisId: string): Promise<PrivateCoachGetAnalysisResult> => {
+      return privateCoachWorkflowService.getAnalysis()
+    }
+  )
+
+  ipcMain.handle(
+    PRIVATE_COACH_IPC_CHANNELS.DELETE_ANALYSIS,
+    async (_, _analysisId: string): Promise<PrivateCoachDeleteAnalysisResult> => {
+      return privateCoachWorkflowService.deleteAnalysis()
+    }
+  )
+
+  ipcMain.handle(
+    PRIVATE_COACH_IPC_CHANNELS.EXPORT_MARKDOWN,
+    async (_, _analysisId: string): Promise<PrivateCoachExportMarkdownResult> => {
+      return privateCoachWorkflowService.exportMarkdown()
     }
   )
 

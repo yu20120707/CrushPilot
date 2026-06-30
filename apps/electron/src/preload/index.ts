@@ -6,7 +6,7 @@
  */
 
 import { contextBridge, ipcRenderer, webUtils } from 'electron'
-import { IPC_CHANNELS, CHANNEL_IPC_CHANNELS, CHAT_IPC_CHANNELS, AGENT_IPC_CHANNELS, ENVIRONMENT_IPC_CHANNELS, INSTALLER_IPC_CHANNELS, PROXY_IPC_CHANNELS, GITHUB_RELEASE_IPC_CHANNELS, SYSTEM_PROMPT_IPC_CHANNELS, MEMORY_IPC_CHANNELS, CHAT_TOOL_IPC_CHANNELS, FEISHU_IPC_CHANNELS, DINGTALK_IPC_CHANNELS, WECHAT_IPC_CHANNELS, AUTOMATION_IPC_CHANNELS } from '@proma/shared'
+import { IPC_CHANNELS, CHANNEL_IPC_CHANNELS, CHAT_IPC_CHANNELS, AGENT_IPC_CHANNELS, ENVIRONMENT_IPC_CHANNELS, INSTALLER_IPC_CHANNELS, PROXY_IPC_CHANNELS, GITHUB_RELEASE_IPC_CHANNELS, SYSTEM_PROMPT_IPC_CHANNELS, MEMORY_IPC_CHANNELS, CHAT_TOOL_IPC_CHANNELS, FEISHU_IPC_CHANNELS, DINGTALK_IPC_CHANNELS, WECHAT_IPC_CHANNELS, AUTOMATION_IPC_CHANNELS, PRIVATE_COACH_IPC_CHANNELS } from '@proma/shared'
 import { USER_PROFILE_IPC_CHANNELS, SETTINGS_IPC_CHANNELS, SCRATCH_PAD_IPC_CHANNELS, APP_ICON_IPC_CHANNELS, DOCK_BADGE_IPC_CHANNELS, STORAGE_IPC_CHANNELS } from '../types'
 import type {
   RuntimeStatus,
@@ -103,6 +103,12 @@ import type {
   PendingRequestsSnapshot,
   Automation,
   CreateAutomationInput,
+  PrivateCoachDeleteAnalysisResult,
+  PrivateCoachExportMarkdownResult,
+  PrivateCoachGetAnalysisResult,
+  PrivateCoachListAnalysesResult,
+  PrivateCoachResult,
+  PrivateCoachWorkflowInput,
   UpdateAutomationInput,
 } from '@proma/shared'
 import type {
@@ -301,6 +307,16 @@ export interface ElectronAPI {
 
   /** 提取附件文档的文本内容 */
   extractAttachmentText: (localPath: string) => Promise<string>
+
+  // ===== Private Coach =====
+
+  privateCoach: {
+    analyzeConversation: (input: PrivateCoachWorkflowInput) => Promise<PrivateCoachResult>
+    listAnalyses: () => Promise<PrivateCoachListAnalysesResult>
+    getAnalysis: (analysisId: string) => Promise<PrivateCoachGetAnalysisResult>
+    deleteAnalysis: (analysisId: string) => Promise<PrivateCoachDeleteAnalysisResult>
+    exportMarkdown: (analysisId: string) => Promise<PrivateCoachExportMarkdownResult>
+  }
 
   // ===== 用户档案相关 =====
 
@@ -1261,6 +1277,29 @@ const electronAPI: ElectronAPI = {
 
   extractAttachmentText: (localPath: string) => {
     return ipcRenderer.invoke(CHAT_IPC_CHANNELS.EXTRACT_ATTACHMENT_TEXT, localPath)
+  },
+
+  // Private Coach
+  privateCoach: {
+    analyzeConversation: (input: PrivateCoachWorkflowInput) => {
+      return ipcRenderer.invoke(PRIVATE_COACH_IPC_CHANNELS.ANALYZE_CONVERSATION, input)
+    },
+
+    listAnalyses: () => {
+      return ipcRenderer.invoke(PRIVATE_COACH_IPC_CHANNELS.LIST_ANALYSES)
+    },
+
+    getAnalysis: (analysisId: string) => {
+      return ipcRenderer.invoke(PRIVATE_COACH_IPC_CHANNELS.GET_ANALYSIS, analysisId)
+    },
+
+    deleteAnalysis: (analysisId: string) => {
+      return ipcRenderer.invoke(PRIVATE_COACH_IPC_CHANNELS.DELETE_ANALYSIS, analysisId)
+    },
+
+    exportMarkdown: (analysisId: string) => {
+      return ipcRenderer.invoke(PRIVATE_COACH_IPC_CHANNELS.EXPORT_MARKDOWN, analysisId)
+    },
   },
 
   // 用户档案

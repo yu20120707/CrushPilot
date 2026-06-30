@@ -53,3 +53,6 @@ export * from './wechat'
 
 // 定时任务（Automation）相关类型
 export * from './automation'
+
+// Private communication coach 相关类型
+export * from './private-coach'
