@@ -5,6 +5,7 @@ import { join } from 'node:path'
 import { PrivateCoachWorkflowService } from './workflow-service'
 import type { PrivateCoachWorkflowInput } from '@proma/shared'
 import { PrivateCoachStore } from './storage/private-coach-store'
+import type { RulebookContext } from './rulebook/rule-types'
 
 const input: PrivateCoachWorkflowInput = {
   source: 'desktop',
@@ -35,6 +36,7 @@ describe('PrivateCoachWorkflowService', () => {
     expect(first.scene).toBe('暧昧推进')
     expect(first.replyCandidates).toHaveLength(3)
     expect(first.analysisId).toStartWith('private_coach_mock_')
+    expect(first.debug?.usedRuleIds).toEqual(['test-rule'])
     expect(JSON.stringify(first)).not.toContain('周末有空吗')
   })
 
@@ -66,5 +68,23 @@ function createService(): PrivateCoachWorkflowService {
   tempDirs.push(rootDir)
   return new PrivateCoachWorkflowService({
     store: new PrivateCoachStore({ rootDir }),
+    rulebookService: {
+      async selectRules(): Promise<RulebookContext> {
+        return {
+          selectedRules: [],
+          usedRuleIds: ['test-rule'],
+          skippedRuleIds: ['missing-rule'],
+          warnings: ['missing-rule: Rule path not found'],
+          totalContentChars: 0,
+          load: {
+            rootDir: 'test-root',
+            manifestPath: 'test-root/rule-manifest.json',
+            rules: [],
+            skippedRuleIds: ['missing-rule'],
+            warnings: ['missing-rule: Rule path not found'],
+          },
+        }
+      },
+    },
   })
 }

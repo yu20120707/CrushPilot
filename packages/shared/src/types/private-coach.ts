@@ -125,6 +125,13 @@ export interface PrivateCoachResult {
   nextStep: string
   followUpOptions: string[]
   confidence: number
+  debug?: PrivateCoachResultDebug
+}
+
+export interface PrivateCoachResultDebug {
+  usedRuleIds?: string[]
+  skippedRuleIds?: string[]
+  ruleLoadWarnings?: string[]
 }
 
 export interface PrivateCoachAnalysisIndexItem {

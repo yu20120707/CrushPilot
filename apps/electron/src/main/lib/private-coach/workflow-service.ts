@@ -10,6 +10,8 @@ import type {
   PrivateCoachWorkflowInput,
 } from '@proma/shared'
 import { DesktopPrivateCoachAdapter } from './adapters/desktop-adapter'
+import { PrivateCoachRulebookService } from './rulebook/rulebook-service'
+import type { RulebookContext } from './rulebook/rule-types'
 import { PrivateCoachStore } from './storage/private-coach-store'
 
 const MOCK_CREATED_AT = '2026-01-01T00:00:00.000Z'
@@ -17,20 +19,26 @@ const MOCK_CREATED_AT = '2026-01-01T00:00:00.000Z'
 interface PrivateCoachWorkflowServiceOptions {
   adapter?: DesktopPrivateCoachAdapter
   store?: PrivateCoachStore
+  rulebookService?: {
+    selectRules(input: PrivateCoachWorkflowInput, conversation: ParsedConversation): Promise<RulebookContext>
+  }
 }
 
 export class PrivateCoachWorkflowService {
   private readonly desktopAdapter: DesktopPrivateCoachAdapter
   private readonly store: PrivateCoachStore
+  private readonly rulebookService: NonNullable<PrivateCoachWorkflowServiceOptions['rulebookService']>
 
   constructor(options: PrivateCoachWorkflowServiceOptions = {}) {
     this.desktopAdapter = options.adapter ?? new DesktopPrivateCoachAdapter()
     this.store = options.store ?? new PrivateCoachStore()
+    this.rulebookService = options.rulebookService ?? new PrivateCoachRulebookService()
   }
 
   async run(input: PrivateCoachWorkflowInput): Promise<PrivateCoachResult> {
     const conversation = this.desktopAdapter.normalizeInput(input)
-    const result = buildMockResult(input, conversation)
+    const rulebookContext = await this.safeSelectRules(input, conversation)
+    const result = buildMockResult(input, conversation, rulebookContext)
     await this.store.savePrivateCoachAnalysis(buildAnalysisRecord(input, conversation, result))
     return result
   }
@@ -49,6 +57,30 @@ export class PrivateCoachWorkflowService {
 
   async exportMarkdown(analysisId: string): Promise<PrivateCoachExportMarkdownResult> {
     return this.store.exportPrivateCoachAnalysisMarkdown(analysisId)
+  }
+
+  private async safeSelectRules(
+    input: PrivateCoachWorkflowInput,
+    conversation: ParsedConversation,
+  ): Promise<RulebookContext | null> {
+    try {
+      return await this.rulebookService.selectRules(input, conversation)
+    } catch (error) {
+      return {
+        selectedRules: [],
+        usedRuleIds: [],
+        skippedRuleIds: [],
+        warnings: [error instanceof Error ? error.message : 'Rulebook load failed'],
+        totalContentChars: 0,
+        load: {
+          rootDir: '',
+          manifestPath: '',
+          rules: [],
+          skippedRuleIds: [],
+          warnings: [],
+        },
+      }
+    }
   }
 }
 
@@ -87,6 +119,7 @@ function buildAnalysisRecord(
 function buildMockResult(
   input: PrivateCoachWorkflowInput,
   conversation: ParsedConversation,
+  rulebookContext: RulebookContext | null,
 ): PrivateCoachResult {
   return {
     analysisId: `private_coach_mock_${hashConversation(input, conversation)}`,
@@ -158,6 +191,11 @@ function buildMockResult(
       '如果对方情绪低落，先共情，不急于邀约或推进。',
     ],
     confidence: 0.62,
+    debug: {
+      usedRuleIds: rulebookContext?.usedRuleIds ?? [],
+      skippedRuleIds: rulebookContext?.skippedRuleIds ?? [],
+      ruleLoadWarnings: rulebookContext?.warnings ?? [],
+    },
   }
 }
 
