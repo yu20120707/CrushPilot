@@ -19,6 +19,7 @@ import { TabContent } from './TabContent'
 import { AutomationFormView } from '@/components/automation/AutomationFormView'
 import { AutomationsListView } from '@/components/automation/AutomationsListView'
 import { AgentSkillsView } from '@/components/agent-skills/AgentSkillsView'
+import { CoachPage } from '@/components/private-coach/CoachPage'
 import { automationFormAtom } from '@/atoms/automation-atoms'
 import { activeViewAtom } from '@/atoms/active-view'
 import { interfaceVariantAtom } from '@/atoms/theme'
@@ -168,6 +169,9 @@ export function MainArea(): React.ReactElement {
             ) : activeView === 'agent-skills' ? (
               // Agent 技能视图：全屏取代 TabBar + TabContent
               <AgentSkillsView />
+            ) : activeView === 'private-coach' ? (
+              // CrushPilot / Private Coach：全屏取代 TabBar + TabContent
+              <CoachPage />
             ) : (
               <>
                 <TabBar />

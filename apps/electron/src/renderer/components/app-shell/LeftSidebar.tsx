@@ -11,7 +11,7 @@
 import * as React from 'react'
 import { useAtom, useSetAtom, useAtomValue, useStore } from 'jotai'
 import { toast } from 'sonner'
-import { Pin, PinOff, Settings, Plus, Trash2, Pencil, PanelLeftClose, PanelLeftOpen, ArrowRightLeft, Search, Archive, ArchiveRestore, ArrowLeft, Bot, MessageSquare, MoreHorizontal, FolderOpen, GripVertical, Clock, AlarmClock, ChevronRight, Blocks, GitBranch } from 'lucide-react'
+import { Pin, PinOff, Settings, Plus, Trash2, Pencil, PanelLeftClose, PanelLeftOpen, ArrowRightLeft, Search, Archive, ArchiveRestore, ArrowLeft, Bot, MessageSquare, MoreHorizontal, FolderOpen, GripVertical, Clock, AlarmClock, ChevronRight, Blocks, GitBranch, HeartHandshake } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
 import { ModeSwitcher } from './ModeSwitcher'
@@ -206,6 +206,37 @@ function SkillsSidebarEntry({ count, updateCount, active, onClick }: SkillsSideb
         )}
       >
         {formatAutomationCount(count)}
+      </span>
+    </button>
+  )
+}
+
+interface PrivateCoachSidebarEntryProps {
+  active: boolean
+  onClick: () => void
+}
+
+function PrivateCoachSidebarEntry({ active, onClick }: PrivateCoachSidebarEntryProps): React.ReactElement {
+  return (
+    <button
+      type="button"
+      aria-label="CrushPilot"
+      onClick={onClick}
+      className={cn(
+        'group w-full flex items-center justify-between px-3 py-2 rounded-md text-[13px] transition-colors duration-100 titlebar-no-drag',
+        active
+          ? 'bg-accent-foreground/[0.10] text-foreground shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]'
+          : 'text-foreground/60 hover:bg-accent-foreground/[0.08] hover:text-foreground',
+      )}
+    >
+      <span className="flex items-center gap-3 min-w-0">
+        <span className={cn('flex-shrink-0 w-[18px] h-[18px]', active ? 'text-accent-foreground' : 'text-foreground/45')}>
+          <HeartHandshake size={16} className="block" />
+        </span>
+        <span className="truncate">CrushPilot</span>
+      </span>
+      <span className="ml-2 rounded-full bg-foreground/[0.045] px-1.5 py-0.5 text-[10px] font-medium text-foreground/[0.42]">
+        mock
       </span>
     </button>
   )
@@ -828,6 +859,16 @@ export function LeftSidebar({ width }: LeftSidebarProps): React.ReactElement {
     }
     setActiveView('agent-skills')
   }, [activeView, setActiveView])
+
+  /** 打开/关闭 CrushPilot 分析视图 */
+  const handleOpenPrivateCoach = React.useCallback((): void => {
+    if (activeView === 'private-coach') {
+      setActiveView('conversations')
+      return
+    }
+    setAutomationForm({ open: false, draft: null })
+    setActiveView('private-coach')
+  }, [activeView, setActiveView, setAutomationForm])
 
   /** 打开当前工作区的 MCP 管理页 */
   const handleOpenMcpManagement = React.useCallback((): void => {
@@ -2005,6 +2046,25 @@ export function LeftSidebar({ width }: LeftSidebarProps): React.ReactElement {
             </TooltipContent>
           </Tooltip>
 
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                type="button"
+                aria-label="CrushPilot"
+                onClick={handleOpenPrivateCoach}
+                className={cn(
+                  'relative size-10 flex items-center justify-center rounded-[12px] transition-colors titlebar-no-drag border',
+                  activeView === 'private-coach'
+                    ? 'border-primary/80 bg-primary text-primary-foreground shadow-sm'
+                    : 'border-border/45 bg-foreground/[0.025] text-foreground/45 hover:border-border/70 hover:bg-foreground/[0.045] hover:text-primary',
+                )}
+              >
+                <HeartHandshake size={16} />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent side="right">CrushPilot</TooltipContent>
+          </Tooltip>
+
           {mode === 'agent' && (
             <Tooltip>
               <TooltipTrigger asChild>
@@ -2145,6 +2205,13 @@ export function LeftSidebar({ width }: LeftSidebarProps): React.ReactElement {
           count={automationCount}
           active={activeView === 'automations'}
           onClick={handleOpenAutomations}
+        />
+      </div>
+
+      <div className="px-3 pb-0.5">
+        <PrivateCoachSidebarEntry
+          active={activeView === 'private-coach'}
+          onClick={handleOpenPrivateCoach}
         />
       </div>
 
