@@ -1,5 +1,7 @@
 export * from './json-repair'
 export * from './model-client'
 export * from './parser'
+export * from './privacy/redactor'
+export * from './storage/private-coach-store'
 export type * from './types'
 export * from './workflow-service'

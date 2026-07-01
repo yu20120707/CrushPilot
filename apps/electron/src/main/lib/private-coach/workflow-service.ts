@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto'
 import type {
   ParsedConversation,
+  PrivateCoachAnalysisRecord,
   PrivateCoachDeleteAnalysisResult,
   PrivateCoachExportMarkdownResult,
   PrivateCoachGetAnalysisResult,
@@ -9,56 +10,77 @@ import type {
   PrivateCoachWorkflowInput,
 } from '@proma/shared'
 import { DesktopPrivateCoachAdapter } from './adapters/desktop-adapter'
+import { PrivateCoachStore } from './storage/private-coach-store'
 
-const PHASE_1A_STORAGE_MESSAGE = 'Phase 1A mock: storage is not implemented until Phase 1C.'
 const MOCK_CREATED_AT = '2026-01-01T00:00:00.000Z'
+
+interface PrivateCoachWorkflowServiceOptions {
+  adapter?: DesktopPrivateCoachAdapter
+  store?: PrivateCoachStore
+}
 
 export class PrivateCoachWorkflowService {
   private readonly desktopAdapter: DesktopPrivateCoachAdapter
+  private readonly store: PrivateCoachStore
 
-  constructor(adapter = new DesktopPrivateCoachAdapter()) {
-    this.desktopAdapter = adapter
+  constructor(options: PrivateCoachWorkflowServiceOptions = {}) {
+    this.desktopAdapter = options.adapter ?? new DesktopPrivateCoachAdapter()
+    this.store = options.store ?? new PrivateCoachStore()
   }
 
   async run(input: PrivateCoachWorkflowInput): Promise<PrivateCoachResult> {
     const conversation = this.desktopAdapter.normalizeInput(input)
-    return buildMockResult(input, conversation)
+    const result = buildMockResult(input, conversation)
+    await this.store.savePrivateCoachAnalysis(buildAnalysisRecord(input, conversation, result))
+    return result
   }
 
   async listAnalyses(): Promise<PrivateCoachListAnalysesResult> {
-    return {
-      items: [],
-      storageEnabled: false,
-      message: PHASE_1A_STORAGE_MESSAGE,
-    }
+    return this.store.listPrivateCoachAnalyses()
   }
 
-  async getAnalysis(): Promise<PrivateCoachGetAnalysisResult> {
-    return {
-      record: null,
-      storageEnabled: false,
-      message: PHASE_1A_STORAGE_MESSAGE,
-    }
+  async getAnalysis(analysisId: string): Promise<PrivateCoachGetAnalysisResult> {
+    return this.store.getPrivateCoachAnalysis(analysisId)
   }
 
-  async deleteAnalysis(): Promise<PrivateCoachDeleteAnalysisResult> {
-    return {
-      deleted: false,
-      storageEnabled: false,
-      message: PHASE_1A_STORAGE_MESSAGE,
-    }
+  async deleteAnalysis(analysisId: string): Promise<PrivateCoachDeleteAnalysisResult> {
+    return this.store.deletePrivateCoachAnalysis(analysisId)
   }
 
-  async exportMarkdown(): Promise<PrivateCoachExportMarkdownResult> {
-    return {
-      markdown: [
-        '# Private Coach Mock Export',
-        '',
-        'Phase 1A mock export. Persistent exports arrive in Phase 1C.',
-      ].join('\n'),
-      storageEnabled: false,
-      message: PHASE_1A_STORAGE_MESSAGE,
-    }
+  async exportMarkdown(analysisId: string): Promise<PrivateCoachExportMarkdownResult> {
+    return this.store.exportPrivateCoachAnalysisMarkdown(analysisId)
+  }
+}
+
+function buildAnalysisRecord(
+  input: PrivateCoachWorkflowInput,
+  conversation: ParsedConversation,
+  result: PrivateCoachResult,
+): PrivateCoachAnalysisRecord {
+  const savedRawConversation = input.options?.saveRawConversation === true
+
+  return {
+    meta: {
+      analysisId: result.analysisId,
+      createdAt: result.createdAt,
+      source: input.source,
+      platform: input.platform,
+      scene: result.scene,
+      riskLevel: result.riskLevel,
+      title: `${result.scene} · ${result.relationshipStage}`,
+      messageCount: conversation.messageCount,
+    },
+    inputSummary: {
+      source: input.source,
+      platform: input.platform,
+      sceneHint: input.sceneHint,
+      analysisDepth: input.analysisDepth,
+      messageCount: conversation.messageCount,
+      savedRawConversation,
+    },
+    parsedConversation: conversation,
+    result,
+    rawConversation: savedRawConversation ? getRawConversationText(input, conversation) : undefined,
   }
 }
 
@@ -156,4 +178,12 @@ function hashConversation(
   })
 
   return createHash('sha256').update(normalized).digest('hex').slice(0, 12)
+}
+
+function getRawConversationText(
+  input: PrivateCoachWorkflowInput,
+  conversation: ParsedConversation,
+): string {
+  if (input.conversationText !== undefined) return input.conversationText
+  return conversation.messages.map((message) => message.raw ?? message.content).join('\n')
 }

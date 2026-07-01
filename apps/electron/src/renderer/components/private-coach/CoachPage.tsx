@@ -17,6 +17,8 @@ export function CoachPage(): React.ReactElement {
   const [loading, setLoading] = useAtom(privateCoachLoadingAtom)
   const [error, setError] = useAtom(privateCoachErrorAtom)
   const [validationMessage, setValidationMessage] = React.useState<string | null>(null)
+  const [exporting, setExporting] = React.useState(false)
+  const [exportMessage, setExportMessage] = React.useState<string | null>(null)
 
   const handleChange = React.useCallback((patch: Partial<typeof form>): void => {
     setForm((prev) => ({ ...prev, ...patch }))
@@ -34,6 +36,7 @@ export function CoachPage(): React.ReactElement {
     setLoading(true)
     setError(null)
     setValidationMessage(null)
+    setExportMessage(null)
 
     const input: PrivateCoachWorkflowInput = {
       source: 'desktop',
@@ -54,6 +57,22 @@ export function CoachPage(): React.ReactElement {
       setLoading(false)
     }
   }, [form, setError, setLoading, setResult])
+
+  const handleExportMarkdown = React.useCallback(async (): Promise<void> => {
+    if (!result) return
+
+    setExporting(true)
+    setExportMessage(null)
+
+    try {
+      const exported = await window.electronAPI.privateCoach.exportMarkdown(result.analysisId)
+      setExportMessage(exported.filePath ? `已导出：${exported.filePath}` : exported.message ?? '已生成 Markdown。')
+    } catch {
+      setExportMessage('导出失败，请稍后重试。')
+    } finally {
+      setExporting(false)
+    }
+  }, [result])
 
   return (
     <div className="flex h-full min-h-0 flex-col bg-content-area titlebar-no-drag">
@@ -81,7 +100,14 @@ export function CoachPage(): React.ReactElement {
             onChange={handleChange}
             onSubmit={handleSubmit}
           />
-          <CoachResultPanel result={result} loading={loading} error={error} />
+          <CoachResultPanel
+            result={result}
+            loading={loading}
+            error={error}
+            exporting={exporting}
+            exportMessage={exportMessage}
+            onExportMarkdown={result ? handleExportMarkdown : undefined}
+          />
         </div>
       </main>
     </div>

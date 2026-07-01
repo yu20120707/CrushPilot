@@ -81,7 +81,12 @@ export interface PrivateCoachWorkflowInput {
   importedConversationId?: string
   providerId?: string
   analysisDepth: PrivateCoachDepth
-  options?: Record<string, unknown>
+  options?: PrivateCoachWorkflowOptions
+}
+
+export interface PrivateCoachWorkflowOptions {
+  saveRawConversation?: boolean
+  [key: string]: unknown
 }
 
 export interface PrivateCoachSignal {
@@ -141,10 +146,11 @@ export interface PrivateCoachAnalysisRecord {
     sceneHint?: PrivateCoachScene
     analysisDepth: PrivateCoachDepth
     messageCount: number
-    savedRawConversation: false
+    savedRawConversation: boolean
   }
   parsedConversation: ParsedConversation
   result: PrivateCoachResult
+  rawConversation?: string
 }
 
 export interface PrivateCoachListAnalysesResult {
@@ -167,6 +173,8 @@ export interface PrivateCoachDeleteAnalysisResult {
 
 export interface PrivateCoachExportMarkdownResult {
   markdown: string
+  analysisId?: string
+  filePath?: string
   storageEnabled: boolean
   message?: string
 }

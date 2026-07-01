@@ -1,4 +1,4 @@
-import { AlertTriangle, Loader2 } from 'lucide-react'
+import { AlertTriangle, Download, Loader2 } from 'lucide-react'
 import type { PrivateCoachResult } from '@proma/shared'
 import { ReplyCard } from './ReplyCard'
 import { RiskBadge } from './RiskBadge'
@@ -9,9 +9,19 @@ interface CoachResultPanelProps {
   result: PrivateCoachResult | null
   loading: boolean
   error: string | null
+  exporting?: boolean
+  exportMessage?: string | null
+  onExportMarkdown?: () => void
 }
 
-export function CoachResultPanel({ result, loading, error }: CoachResultPanelProps): React.ReactElement {
+export function CoachResultPanel({
+  result,
+  loading,
+  error,
+  exporting = false,
+  exportMessage,
+  onExportMarkdown,
+}: CoachResultPanelProps): React.ReactElement {
   if (loading) {
     return (
       <div className="flex min-h-[360px] items-center justify-center rounded-xl border border-border/60 bg-background/35">
@@ -51,16 +61,34 @@ export function CoachResultPanel({ result, loading, error }: CoachResultPanelPro
   return (
     <div className="space-y-4">
       <section className="rounded-xl border border-border/60 bg-background/45 p-5">
-        <div className="flex flex-wrap items-center gap-2">
-          <StageBadge stage={result.relationshipStage} />
-          <RiskBadge level={result.riskLevel} />
-          <span className="rounded-full border border-border/60 px-2 py-0.5 text-xs text-muted-foreground">
-            场景：{result.scene}
-          </span>
-          <span className="rounded-full border border-border/60 px-2 py-0.5 text-xs text-muted-foreground">
-            置信度：{Math.round(result.confidence * 100)}%
-          </span>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <StageBadge stage={result.relationshipStage} />
+            <RiskBadge level={result.riskLevel} />
+            <span className="rounded-full border border-border/60 px-2 py-0.5 text-xs text-muted-foreground">
+              场景：{result.scene}
+            </span>
+            <span className="rounded-full border border-border/60 px-2 py-0.5 text-xs text-muted-foreground">
+              置信度：{Math.round(result.confidence * 100)}%
+            </span>
+          </div>
+          {onExportMarkdown && (
+            <button
+              type="button"
+              onClick={onExportMarkdown}
+              disabled={exporting}
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-3 py-2 text-xs font-medium text-primary-foreground shadow-sm transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {exporting ? <Loader2 className="size-3.5 animate-spin" /> : <Download className="size-3.5" />}
+              导出 Markdown
+            </button>
+          )}
         </div>
+        {exportMessage && (
+          <p className="mt-3 rounded-lg bg-muted/60 px-3 py-2 text-xs text-muted-foreground">
+            {exportMessage}
+          </p>
+        )}
         <p className="mt-4 text-sm leading-6 text-foreground">{result.situationSummary}</p>
       </section>
 

@@ -1414,7 +1414,7 @@ export function registerIpcHandlers(): void {
     }
   )
 
-  // ===== Private Coach Phase 1A mock =====
+  // ===== Private Coach local mock workflow =====
 
   ipcMain.handle(
     PRIVATE_COACH_IPC_CHANNELS.ANALYZE_CONVERSATION,
@@ -1435,22 +1435,22 @@ export function registerIpcHandlers(): void {
 
   ipcMain.handle(
     PRIVATE_COACH_IPC_CHANNELS.GET_ANALYSIS,
-    async (_, _analysisId: string): Promise<PrivateCoachGetAnalysisResult> => {
-      return privateCoachWorkflowService.getAnalysis()
+    async (_, analysisId: string): Promise<PrivateCoachGetAnalysisResult> => {
+      return privateCoachWorkflowService.getAnalysis(analysisId)
     }
   )
 
   ipcMain.handle(
     PRIVATE_COACH_IPC_CHANNELS.DELETE_ANALYSIS,
-    async (_, _analysisId: string): Promise<PrivateCoachDeleteAnalysisResult> => {
-      return privateCoachWorkflowService.deleteAnalysis()
+    async (_, analysisId: string): Promise<PrivateCoachDeleteAnalysisResult> => {
+      return privateCoachWorkflowService.deleteAnalysis(analysisId)
     }
   )
 
   ipcMain.handle(
     PRIVATE_COACH_IPC_CHANNELS.EXPORT_MARKDOWN,
-    async (_, _analysisId: string): Promise<PrivateCoachExportMarkdownResult> => {
-      return privateCoachWorkflowService.exportMarkdown()
+    async (_, analysisId: string): Promise<PrivateCoachExportMarkdownResult> => {
+      return privateCoachWorkflowService.exportMarkdown(analysisId)
     }
   )
 
